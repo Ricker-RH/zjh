@@ -16,7 +16,15 @@ const defaultHost =
   typeof window !== "undefined" && window.location && window.location.hostname
     ? window.location.hostname
     : "192.168.2.120";
-const API_BASE_URL = `http://${defaultHost}:4000`;
+
+const envApiBase =
+  typeof process !== "undefined" &&
+  process.env &&
+  process.env.EXPO_PUBLIC_API_BASE_URL
+    ? process.env.EXPO_PUBLIC_API_BASE_URL
+    : null;
+
+const API_BASE_URL = envApiBase || `http://${defaultHost}:4000`;
 
 function getCardLabel(card) {
   if (!card) return "";
